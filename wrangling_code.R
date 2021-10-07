@@ -42,7 +42,15 @@ gini_tidy <- gini %>%
 
 tidy <- merge(income_tidy, gini_tidy, c('years', 'country' ))
 
-#tidy up years in our data 
+#tidy up years as integer in our data 
 tidy$years <- as.integer(substring(tidy$years,2))
 
 tidy <- as_tibble(tidy)
+
+#For further visualization, we match continent names with countries. 
+library(countrycode)
+
+tidy <- tidy %>% 
+  mutate(continent = countrycode(country, 'country.name', 'continent')) 
+
+write.csv(tidy, 'tidy.csv')
