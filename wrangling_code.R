@@ -4,6 +4,7 @@
 library(tidyverse)
 library(tibble)
 library(dplyr)
+library(ggplot2)
 
 #import data
 gini <- read.csv('gini.csv')
@@ -50,7 +51,7 @@ tidy <- as_tibble(tidy)
 #For further visualization, we match continent names with countries. 
 library(countrycode)
 
+#add continent name in the tibble
 tidy <- tidy %>% 
   mutate(continent = countrycode(country, 'country.name', 'continent')) 
 
-write.csv(tidy, 'tidy.csv')

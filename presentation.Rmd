@@ -1,0 +1,83 @@
+---
+title: "MA 615"
+subtitle: "Assignment 2 Presentation"
+author: Zhihui Zhang
+output: ioslides_presentation
+df_print: tibble
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source('wrangling_code.R')
+source('visualization_function.R')
+```
+
+
+## Background
+
+<div style ="color:MidnightBlue">
+- Data source: [Gapminder website](https://www.gapminder.org/data/)
+
+- Indicators:
+a. Average daily income per capita:  the amount of income earned per person per day in a nation or geographic region
+
+b. Gini Coefficients:  single number that demonstrates a degree of inequality in a distribution of $\frac{\text{income}}{\text{wealth}}$
+
+- Time range: 1799 - 2039 
+</div>
+
+## Data Summaries
+<p style="color:Black">
+Average daily income and Gini Coefficients over time
+</p>
+```{r}
+tidy %>%
+  group_by(continent) %>%
+  summarise(avg_daily_income = mean(daily_income), avg_gini_coef = mean(gini_coef))
+```
+
+<p style="color:MidnightBlue">
+We can compare average daily income and average gini coefficient from 1799 to 2039 among five continents. According to the table above, Africa has the lowest average daily income while Americas has the highest gini coefficients.  
+</p>
+
+
+## Data Visualization I
+<h3 style="color:Black;text-align:center"> 
+Trends of average daily income across five continents
+</h3>
+```{r fig.align="center"}
+time_plot(tidy, quo(years), quo(daily_income), quo(continent), mean, 'avg_daily_income')
+```
+
+## Interpretation I
+<div style="color:MidnightBlue"> 
+- Average daily income per capita for all continents have increasing trend.
+
+- All continents except Africa reached a small peak around 1975 then fell dramatically.
+
+- Slightly falls from 2020 to 2021 due to the pandemic. 
+
+- Europe has the highest average daily income per capita.
+</div>
+
+
+## Data Visualization II
+<h3 style="color:Black;text-align:center"> 
+Boxplot of Gini Coefficients in different eras
+</h3>
+
+```{r fig.align="center"}
+box_plot(tidy, quo(continent), quo(gini_coef), quo(years), c(1900, 2000))
+```
+
+## Interpretation II
+<div style = "color:DarkSlateBlue"> 
+- Compare to 1900, the gap between the rich and the poor in Europe narrows, while it becomes larger in other continents in 2000. No obvious change in Oceania. 
+
+- In 2000, the gini coefficients of three countries in Africa are extremely high.
+
+- Except Oceania, Europe has the smallest range of Gini Coefficients in 2000. It may benefit from the development of European Union (EU).
+
+</div>
+
+
