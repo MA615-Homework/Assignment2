@@ -10,4 +10,3 @@ This is my assignment 2 from MA 615: Data Science in R.
   2. import data in R Studio and tidy them up, then combine two data frames into one tibble.
   3. Write functions that taking a tibble and its column names as input and returning a ggplot as output.
   4. Wrap things up and use ioslides to present what I have done.
-- [Link](http://htmlpreview.github.io/?https://github.com/MA615-Homwrok/Assignment2/blob/main/presentation.html) for my presentation
