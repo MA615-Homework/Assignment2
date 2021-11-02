@@ -1,3 +1,36 @@
+#################
+
+#################
+
+time_plot1 <- function(t, x, y, group, func, idx){
+   world<- tidy %>% group_by(years) %>%
+      summarise(daily_income = mean(daily_income))
+   world<- data.frame(continent = rep("World", dim(world)[1]),
+                                years = world$years,
+                                daily_income = world$daily_income)
+   t <- data.frame("continent" = tidy$continent,"years" = tidy$years,"daily_income" = tidy$daily_income)
+   t<- merge(t,world, all = T)
+   t%>%
+      group_by(!!group,!!x) %>%
+      mutate(index = mean(!!y)) %>%
+      select(c( !!x, index,!!group)) %>%
+      ggplot(aes(x = !!x, y = index, color = !!group)) +
+      geom_line(size=1) + 
+      geom_point(size=0.5) + 
+      ylab(idx) 
+}
+time_plot(tidy, 
+          quo(years), 
+          quo(daily_income),
+          quo(continent), 
+          mean,
+          'avg_daily_income')
+
+
+
+
+
+
 
 #' @param t input data set
 #' @param x variable related to time in the x axis
